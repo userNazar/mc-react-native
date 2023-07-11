@@ -1,12 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
+
+import { Provider } from 'react-redux/es/exports';
+import { store } from './store';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Main from './pages/Main';
+import Item from './pages/Item';
+import Header from './components/Header';
+import { RootStackParamList } from './types/navigation';
+
+
 
 export default function App() {
+
+  const Stack = createNativeStackNavigator<RootStackParamList>();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+
+      <Provider store={store}>
+        <NavigationContainer>
+        <Header />
+          <Stack.Navigator initialRouteName='Main' screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='Main' component={Main} />
+            <Stack.Screen name='Item' component={Item} />
+          </Stack.Navigator>
+
+        </NavigationContainer>
+
+      </Provider>
+
   );
 }
 
