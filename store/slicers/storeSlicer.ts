@@ -41,10 +41,26 @@ const storeSlicer = createSlice({
             }
         },
         minusTotal: (state, action) => {
-            state.total -= action.payload
+            const objId = state.list.findIndex(obj => obj.id === action.payload.id)
+            if (objId > -1) {
+                state.list = state.list.map(obj =>
+                    obj.id === action.payload.id
+                        ? { ...obj, count: obj.count - 1 }
+                        : obj
+                )
+            }
+            state.total -= action.payload.price;
         },
         plusTotal: (state, action) => {
-            state.total += action.payload
+            const objId = state.list.findIndex(obj => obj.id === action.payload.id)
+            if (objId > -1) {
+                state.list = state.list.map(obj =>
+                    obj.id === action.payload.id
+                        ? { ...obj, count: obj.count + 1 }
+                        : obj
+                )
+            }
+            state.total += action.payload.price
         },
         restart: state => {
             state.list = [];

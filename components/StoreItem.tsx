@@ -28,11 +28,17 @@ export default function StoreItem({ img, name, price, count, id }: StoreItemProp
         } else {
             dispatch(deleteFromStore(id))
         }
-        dispatch(minusTotal(+price.slice(2)))
+        const param = {
+            id,  price: +price.slice(2),
+        }
+        dispatch(minusTotal(param))
     }
     const plusHandler = () => {
         setCountOfItems(prev => prev + 1);
-        dispatch(plusTotal(+price.slice(2)))
+        const param = {
+            id,  price: +price.slice(2),
+        }
+        dispatch(plusTotal(param))
     }
 
    
